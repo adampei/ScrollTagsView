@@ -40,6 +40,8 @@ public class ScrollTagsView: UIView {
     public var fontSize: UIFont = UIFont.systemFont(ofSize: 13)
     /// 背景色 默认白色
     public var colorBackground: UIColor = .white
+    /// 线比字宽多少
+    public var lineOutOfWordsWidth: CGFloat = 0
     
     /// 线条
     private var line: UIView!
@@ -116,7 +118,7 @@ extension ScrollTagsView {
             if i == defaultSelect {
                 currentSelectedBtn = btnTitle
                 btnTitle.isSelected = true
-                line.frame = CGRect.init(x: btnTitle.frame.origin.x, y: scroView.bounds.size.height - 1, width: btnTitle.bounds.size.width, height: 1)
+                line.frame = CGRect.init(x: btnTitle.frame.origin.x - 0.5 * lineOutOfWordsWidth, y: scroView.bounds.size.height - 1, width: btnTitle.bounds.size.width + lineOutOfWordsWidth, height: 1)
                 line.isHidden = false
             } else {
                 btnTitle.isSelected = false
@@ -160,7 +162,7 @@ extension ScrollTagsView {
             
             /// 点击不同btn
             UIView.animate(withDuration: 0.3) {
-                self.line.frame = CGRect.init(x: sender.frame.origin.x, y: self.scroView.bounds.size.height - 1, width: sender.bounds.size.width, height: 1)
+                self.line.frame = CGRect.init(x: sender.frame.origin.x - 0.5 * self.lineOutOfWordsWidth, y: self.scroView.bounds.size.height - 1, width: sender.bounds.size.width + self.lineOutOfWordsWidth, height: 1)
             }
             
             currentSelectedBtn.isSelected = false

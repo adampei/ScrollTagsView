@@ -32,6 +32,8 @@ class ViewController: UIViewController {
         tagView.colorSelected = .red
         /// 设置背景色
 //        tagView.colorBackground = .blue
+        /// 线比字宽出多少
+//        tagView.lineOutOfWordsWidth = 15
         /// 底部滚动线条颜色
         tagView.colorLine = .red
         tagView.createView(titleArray)
