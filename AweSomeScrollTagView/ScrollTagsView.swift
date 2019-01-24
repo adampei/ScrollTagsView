@@ -32,7 +32,10 @@ public class ScrollTagsView: UIView {
     public var colorNormal: UIColor = .black
     /// 底部线条颜色
     public var colorLine: UIColor = .red
+    /// 点击回调
     public var tapCallback:  ClickCallabck!
+    /// marginleft
+    public var marginLeft: CGFloat = 18.5
     
     /// 线条
     private var line: UIView!
@@ -74,7 +77,6 @@ extension ScrollTagsView {
         scroView.backgroundColor = .orange
         addSubview(scroView)
         
-        let marginLeft = CGFloat(18.5)
         /// 全部margin宽度
         let totalLength = marginLeft * CGFloat(2) * CGFloat(titlesArray.count)
         /// 总的label的宽度

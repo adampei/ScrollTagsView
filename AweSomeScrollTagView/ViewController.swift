@@ -20,11 +20,18 @@ class ViewController: UIViewController {
         let tagView = ScrollTagsView(frame: CGRect.init(x: 0, y: 100, width: UIScreen.main.bounds.size.width, height: 35))
         view.addSubview(tagView)
         let titleArray = ["我该使用", "什么", "方法", "implemented", "这", "可以", "支持一", "个长文本", "短文本", "等等都可以", "非常awesome"]
+        /// 默认选中第几个
         tagView.defaultSelect = 0
+        /// 左侧距离屏幕边 距离
+        tagView.marginLeft = 30
+        /// 非选中状态颜色
         tagView.colorNormal = .black
+        /// 选中文字颜色
         tagView.colorSelected = .yellow
+        /// 底部滚动线条颜色
         tagView.colorLine = .yellow
         tagView.createView(titleArray)
+        /// 点击事件回调
         tagView.tapCallback = {idx in
             print(idx)
         }
