@@ -42,6 +42,10 @@ public class ScrollTagsView: UIView {
     public var colorBackground: UIColor = .white
     /// 线比字宽多少
     public var lineOutOfWordsWidth: CGFloat = 0
+    /// 线条高度
+    public var heightLine: CGFloat = 1
+    /// 是否展示线条
+    public var isHideLine: Bool = true
     
     /// 线条
     private var line: UIView!
@@ -92,9 +96,10 @@ extension ScrollTagsView {
         /// 每个label宽度数组
         var arrMuWidths: Array<CGFloat> = []
         
-        line = UIView(frame: CGRect.init(x: 0, y: scroView.bounds.size.height - 1, width: 0, height: 1))
-        line.isHidden = true
+        line = UIView(frame: CGRect.init(x: 0, y: scroView.bounds.size.height - 1, width: 0, height: heightLine))
+        
         line.backgroundColor = colorLine
+        line.isHidden = isHideLine
         scroView.addSubview(line)
         
         for i in 0..<titlesArray.count {
@@ -118,8 +123,8 @@ extension ScrollTagsView {
             if i == defaultSelect {
                 currentSelectedBtn = btnTitle
                 btnTitle.isSelected = true
-                line.frame = CGRect.init(x: btnTitle.frame.origin.x - 0.5 * lineOutOfWordsWidth, y: scroView.bounds.size.height - 1, width: btnTitle.bounds.size.width + lineOutOfWordsWidth, height: 1)
-                line.isHidden = false
+                line.frame = CGRect.init(x: btnTitle.frame.origin.x - 0.5 * lineOutOfWordsWidth, y: scroView.bounds.size.height - self.heightLine, width: btnTitle.bounds.size.width + lineOutOfWordsWidth, height: heightLine)
+                line.isHidden = isHideLine
             } else {
                 btnTitle.isSelected = false
             }
@@ -162,7 +167,7 @@ extension ScrollTagsView {
             
             /// 点击不同btn
             UIView.animate(withDuration: 0.3) {
-                self.line.frame = CGRect.init(x: sender.frame.origin.x - 0.5 * self.lineOutOfWordsWidth, y: self.scroView.bounds.size.height - 1, width: sender.bounds.size.width + self.lineOutOfWordsWidth, height: 1)
+                self.line.frame = CGRect.init(x: sender.frame.origin.x - 0.5 * self.lineOutOfWordsWidth, y: self.scroView.bounds.size.height - self.heightLine, width: sender.bounds.size.width + self.lineOutOfWordsWidth, height: self.heightLine)
             }
             
             currentSelectedBtn.isSelected = false

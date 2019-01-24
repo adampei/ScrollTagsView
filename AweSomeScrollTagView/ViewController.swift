@@ -36,6 +36,11 @@ class ViewController: UIViewController {
 //        tagView.lineOutOfWordsWidth = 15
         /// 底部滚动线条颜色
         tagView.colorLine = .red
+        
+        /// 是否展示线条
+        tagView.isHideLine = false
+        /// 线条高度
+        tagView.heightLine = 7
         tagView.createView(titleArray)
         /// 点击事件回调
         tagView.tapCallback = {idx in
