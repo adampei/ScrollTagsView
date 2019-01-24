@@ -25,7 +25,9 @@ class ViewController: UIViewController {
         tagView.colorSelected = .yellow
         tagView.colorLine = .yellow
         tagView.createView(titleArray)
-        
+        tagView.tapCallback = {idx in
+            print(idx)
+        }
     }
 
 

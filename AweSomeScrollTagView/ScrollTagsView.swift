@@ -20,17 +20,19 @@ class NoneHightedButton: UIButton {
     }
 }
 
-class ScrollTagsView: UIView {
+public class ScrollTagsView: UIView {
+    
+    public typealias ClickCallabck = (_ idx: Int) -> Void
     
     /// 默认选中角标
-    var defaultSelect: Int = 0
+    public var defaultSelect: Int = 0
     /// 选中字体颜色
-    var colorSelected: UIColor = .black
+    public var colorSelected: UIColor = .black
     /// textcolor of normal
-    var colorNormal: UIColor = .black
+    public var colorNormal: UIColor = .black
     /// 底部线条颜色
-    var colorLine: UIColor = .red
-    
+    public var colorLine: UIColor = .red
+    public var tapCallback:  ClickCallabck!
     
     /// 线条
     private var line: UIView!
@@ -45,8 +47,8 @@ class ScrollTagsView: UIView {
             createView(titleArray)
         }
     }
-
-    override init(frame: CGRect) {
+    
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
         
@@ -65,7 +67,7 @@ extension ScrollTagsView {
         return text.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin], attributes: [NSAttributedString.Key.font : font], context: nil).size
     }
     
-    func createView(_ titlesArray: Array<String>) {
+    public func createView(_ titlesArray: Array<String>) {
         
         scroView = UIScrollView(frame: bounds)
         scroView.showsHorizontalScrollIndicator = false
@@ -134,7 +136,12 @@ extension ScrollTagsView {
     
     @objc func clickTag(sender: NoneHightedButton) {
         
-//        let lbl: UILabel = sender.view as! UILabel
+        /// 点击回调
+        if let callback = tapCallback {
+            callback(sender.tag)
+        }
+        
+        //        let lbl: UILabel = sender.view as! UILabel
         //        print("tag = \(lbl.tag)")
         //        print("x = \(lbl.frame.maxX)")
         //        print("x = \(lbl.frame.midX)")
