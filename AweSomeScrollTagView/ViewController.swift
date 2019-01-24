@@ -30,6 +30,8 @@ class ViewController: UIViewController {
         tagView.colorNormal = .black
         /// 选中文字颜色
         tagView.colorSelected = .red
+        /// 设置背景色
+//        tagView.colorBackground = .blue
         /// 底部滚动线条颜色
         tagView.colorLine = .red
         tagView.createView(titleArray)
