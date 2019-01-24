@@ -22,6 +22,8 @@ class ViewController: UIViewController {
         let titleArray = ["我该使用", "什么", "方法", "implemented", "这", "可以", "支持一", "个长文本", "短文本", "等等都可以", "非常awesome"]
         /// 默认选中第几个
         tagView.defaultSelect = 0
+        /// 设置字体大小
+        tagView.fontSize = UIFont.systemFont(ofSize: 18)
         /// 左侧距离屏幕边 距离
         tagView.marginLeft = 30
         /// 非选中状态颜色

@@ -36,6 +36,8 @@ public class ScrollTagsView: UIView {
     public var tapCallback:  ClickCallabck!
     /// marginleft
     public var marginLeft: CGFloat = 18.5
+    /// font
+    public var fontSize: UIFont = UIFont.systemFont(ofSize: 13)
     
     /// 线条
     private var line: UIView!
@@ -93,7 +95,7 @@ extension ScrollTagsView {
         
         for i in 0..<titlesArray.count {
             
-            let singleSize: CGSize = textSize(text: titlesArray[i], font: UIFont.systemFont(ofSize: 15), maxSize: CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height))
+            let singleSize: CGSize = textSize(text: titlesArray[i], font: fontSize, maxSize: CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height))
             arrMuWidths.append(singleSize.width)
             muTotalWidth = muTotalWidth + singleSize.width
             
@@ -102,7 +104,7 @@ extension ScrollTagsView {
             btnTitle.setTitleColor(colorSelected, for: .selected)
             btnTitle.setTitleColor(colorNormal, for: .normal)
             scroView.addSubview(btnTitle)
-            btnTitle.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+            btnTitle.titleLabel?.font = fontSize
             btnTitle.frame = CGRect.init(x: leftMargin, y: 0.5 * (bounds.size.height - singleSize.height), width: singleSize.width, height: singleSize.height)
             leftMargin = leftMargin + singleSize.width + 2 * marginLeft
             /// 绑定tag
