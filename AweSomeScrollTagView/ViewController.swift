@@ -20,7 +20,12 @@ class ViewController: UIViewController {
         let tagView = ScrollTagsView(frame: CGRect.init(x: 0, y: 100, width: UIScreen.main.bounds.size.width, height: 35))
         view.addSubview(tagView)
         let titleArray = ["我该使用", "什么", "方法", "implemented", "这", "可以", "支持一", "个长文本", "短文本", "等等都可以", "非常awesome"]
+        tagView.defaultSelect = 0
+        tagView.colorNormal = .black
+        tagView.colorSelected = .yellow
+        tagView.colorLine = .yellow
         tagView.createView(titleArray)
+        
     }
 
 

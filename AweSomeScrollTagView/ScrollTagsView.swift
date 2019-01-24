@@ -8,8 +8,34 @@
 
 import UIKit
 
+// MARK: 按钮高亮不显示背景色的按钮
+class NoneHightedButton: UIButton {
+    
+    override var isHighlighted: Bool {
+        set {
+        }
+        get {
+            return false
+        }
+    }
+}
+
 class ScrollTagsView: UIView {
     
+    /// 默认选中角标
+    var defaultSelect: Int = 0
+    /// 选中字体颜色
+    var colorSelected: UIColor = .black
+    /// textcolor of normal
+    var colorNormal: UIColor = .black
+    /// 底部线条颜色
+    var colorLine: UIColor = .red
+    
+    
+    /// 线条
+    private var line: UIView!
+    /// 当前选中的button
+    private var currentSelectedBtn: NoneHightedButton!
     /// scrollView
     private var scroView: UIScrollView!
     /// 总长度 label + margin间隙
@@ -50,36 +76,47 @@ extension ScrollTagsView {
         /// 全部margin宽度
         let totalLength = marginLeft * CGFloat(2) * CGFloat(titlesArray.count)
         /// 总的label的宽度
-        var lblWidth: CGFloat! = 0
+        var muTotalWidth: CGFloat! = 0
         /// 布局uilabel用
         var leftMargin: CGFloat = marginLeft
         /// 每个label宽度数组
-        var arrLblWidths: Array<CGFloat> = []
+        var arrMuWidths: Array<CGFloat> = []
+        
+        line = UIView(frame: CGRect.init(x: 0, y: scroView.bounds.size.height - 1, width: 0, height: 1))
+        line.isHidden = true
+        line.backgroundColor = colorLine
+        scroView.addSubview(line)
         
         for i in 0..<titlesArray.count {
             
             let singleSize: CGSize = textSize(text: titlesArray[i], font: UIFont.systemFont(ofSize: 15), maxSize: CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height))
-            arrLblWidths.append(singleSize.width)
-            lblWidth = lblWidth + singleSize.width
+            arrMuWidths.append(singleSize.width)
+            muTotalWidth = muTotalWidth + singleSize.width
             
-            let lblTitle = UILabel()
-            lblTitle.text = titlesArray[i]
-            lblTitle.isUserInteractionEnabled = true
-            lblTitle.textColor = .black
-            scroView.addSubview(lblTitle)
-            lblTitle.font = UIFont.systemFont(ofSize: 15)
-            lblTitle.frame = CGRect.init(x: leftMargin, y: 0.5 * (bounds.size.height - singleSize.height), width: singleSize.width, height: singleSize.height)
+            let btnTitle = NoneHightedButton()
+            btnTitle.setTitle(titlesArray[i], for: .normal)
+            btnTitle.setTitleColor(colorSelected, for: .selected)
+            btnTitle.setTitleColor(colorNormal, for: .normal)
+            scroView.addSubview(btnTitle)
+            btnTitle.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+            btnTitle.frame = CGRect.init(x: leftMargin, y: 0.5 * (bounds.size.height - singleSize.height), width: singleSize.width, height: singleSize.height)
             leftMargin = leftMargin + singleSize.width + 2 * marginLeft
             /// 绑定tag
-            lblTitle.tag = i
+            btnTitle.tag = i
+            btnTitle.addTarget(self, action: #selector(clickTag(sender:)), for: .touchUpInside)
             
-            /// 添加手势
-            let tap = UITapGestureRecognizer(target: self, action: #selector(clickLbl(sender:)))
-            lblTitle.addGestureRecognizer(tap)
+            if i == defaultSelect {
+                currentSelectedBtn = btnTitle
+                btnTitle.isSelected = true
+                line.frame = CGRect.init(x: btnTitle.frame.origin.x, y: scroView.bounds.size.height - 1, width: btnTitle.bounds.size.width, height: 1)
+                line.isHidden = false
+            } else {
+                btnTitle.isSelected = false
+            }
         }
         
         /// lable宽度 + margin间隙
-        lengthTotal = lblWidth! + totalLength
+        lengthTotal = muTotalWidth! + totalLength
         /// scollVIew的宽度
         let scrolWidth = bounds.size.width
         /// 判断是否可滚动
@@ -95,16 +132,31 @@ extension ScrollTagsView {
 // MARK: events
 extension ScrollTagsView {
     
-    @objc func clickLbl(sender: UITapGestureRecognizer) {
+    @objc func clickTag(sender: NoneHightedButton) {
         
-        let lbl: UILabel = sender.view as! UILabel
-//        print("tag = \(lbl.tag)")
-//        print("x = \(lbl.frame.maxX)")
-//        print("x = \(lbl.frame.midX)")
-//        print("x = \(lbl.frame.minX)")
-//        print("contentfooset = \(scroView.contentOffset.x)")
+//        let lbl: UILabel = sender.view as! UILabel
+        //        print("tag = \(lbl.tag)")
+        //        print("x = \(lbl.frame.maxX)")
+        //        print("x = \(lbl.frame.midX)")
+        //        print("x = \(lbl.frame.minX)")
+        //        print("contentfooset = \(scroView.contentOffset.x)")
         
-        let middleX = lbl.frame.midX
+        if sender.tag == defaultSelect {
+            /// 点击同一个
+        } else {
+            
+            /// 点击不同btn
+            UIView.animate(withDuration: 0.3) {
+                self.line.frame = CGRect.init(x: sender.frame.origin.x, y: self.scroView.bounds.size.height - 1, width: sender.bounds.size.width, height: 1)
+            }
+            
+            currentSelectedBtn.isSelected = false
+            sender.isSelected = true
+            currentSelectedBtn = sender
+            defaultSelect = sender.tag
+        }
+        
+        let middleX = sender.frame.midX
         /// 实际偏移量
         // let realOffset = scroView.contentOffset.x
         let midScrollView = scroView.bounds.size.width * 0.5
@@ -124,5 +176,6 @@ extension ScrollTagsView {
             scroView.setContentOffset(CGPoint.init(x: needOffset, y: 0), animated: true)
         }
     }
+    
 }
 
