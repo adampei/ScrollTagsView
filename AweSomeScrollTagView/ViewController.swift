@@ -29,9 +29,9 @@ class ViewController: UIViewController {
         /// 非选中状态颜色
         tagView.colorNormal = .black
         /// 选中文字颜色
-        tagView.colorSelected = .yellow
+        tagView.colorSelected = .red
         /// 底部滚动线条颜色
-        tagView.colorLine = .yellow
+        tagView.colorLine = .red
         tagView.createView(titleArray)
         /// 点击事件回调
         tagView.tapCallback = {idx in

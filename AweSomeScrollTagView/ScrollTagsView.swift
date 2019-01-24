@@ -38,6 +38,8 @@ public class ScrollTagsView: UIView {
     public var marginLeft: CGFloat = 18.5
     /// font
     public var fontSize: UIFont = UIFont.systemFont(ofSize: 13)
+    /// 背景色 默认白色
+    public var colorBackground: UIColor = .white
     
     /// 线条
     private var line: UIView!
@@ -76,7 +78,7 @@ extension ScrollTagsView {
         
         scroView = UIScrollView(frame: bounds)
         scroView.showsHorizontalScrollIndicator = false
-        scroView.backgroundColor = .orange
+        scroView.backgroundColor = colorBackground
         addSubview(scroView)
         
         /// 全部margin宽度
