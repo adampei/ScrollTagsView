@@ -6,7 +6,7 @@
 
 ![image](https://github.com/adampei/ScrollTagsView/blob/master/normal2.gif)
 
-### 当控件总宽度 < view 的宽度的时候,有两种布局方式
+### 当控件总宽度 < view 的宽度的时候,有两种布局方式,通过变量`tagView.isConstrainPlain = false`来设置
 
 * 平铺样式,依然按照给定的margin进行布局
 
