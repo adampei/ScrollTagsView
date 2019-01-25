@@ -20,9 +20,8 @@ class ViewController: UIViewController {
         let tagView = ScrollTagsView(frame: CGRect.init(x: 0, y: 100, width: UIScreen.main.bounds.size.width, height: 35))
         view.addSubview(tagView)
         
-//        let titleArray = ["我该使用", "什么", "方法", "implemented", "这", "可以", "支持一", "个长文本", "短文本", "等等都可以", "非常awesome"]
-        
-        let titleArray = ["我该使用", "什么", "方法",]
+        let titleArray = ["我该使用", "什么", "方法", "implemented", "这", "可以", "支持一", "个长文本", "短文本", "等等都可以", "非常awesome"]
+//        let titleArray = ["我该使用", "什么", "方法",]
 
         /// 默认选中第几个
         tagView.defaultSelect = 0
@@ -39,7 +38,7 @@ class ViewController: UIViewController {
         /// 线比字宽出多少
         tagView.lineOutOfWordsWidth = 15
         /// 如果控件较少 是否均分展示
-        tagView.isConstrainPlain = true
+        tagView.isConstrainPlain = false
         /// 底部滚动线条颜色
         tagView.colorLine = .red
         /// 是否展示线条
